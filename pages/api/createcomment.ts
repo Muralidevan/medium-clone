@@ -17,15 +17,17 @@ export default async function handler(req:NextApiRequest, res:NextApiResponse) {
   const { _id, name, email, comment} = JSON.parse(req.body);
 
   try{
-    await client.create({
+    const res = await client.create({
       _type: 'comment',
       post: {
         _type: 'reference',
         _ref: _id,
       },
       name,
-      email,comment
-    })
+      email,
+      comment,
+    });
+    console.log('res', res);
   }
   catch(err){
 console.log('err', err)
